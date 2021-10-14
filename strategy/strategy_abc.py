@@ -1,7 +1,6 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABC, abstractmethod
 
-class AbsStrategy(object):
-    __metaclass__ = ABCMeta
+class AbsStrategy(ABC):
 
     @abstractmethod
     def calculate(self, order):

@@ -3,12 +3,19 @@
 ## Introduction
 
 ### Prerequisite
-* python3 (python-3.9.5)
-* pip/pip3 (pip-20.0.2)
-* pytest (pytest-6.2.4)
+* `python3 (python-3.9.5)`
+* `pip/pip3 (pip-20.0.2)`
+* `pytest (pytest-6.2.4)`
 
 This repo demonstrates various design patterns implementation in python.
+The goal is to maintain quick templates as these patterns would be used over and over during development :neutral_face:.
 
+### Why python :thinking:?
+Well, most design patterns are naturally derived from OOP languages like `Java` or `C#`.
+There are tons of samples already when there's a need to bring up things from scratch with `Java` by applying certain pattern.
+On the other hand, not so common for `python`.
+
+### File Layout
 For each pattern, it is structured as follows. \
 **Note**: It is simply to be a `package` by putting an empty `__init__.py` 
 ```bash
@@ -26,6 +33,11 @@ To run the test for a pattern:
 ```bash
 $ pytest <pattern_name>
 ```
+
+# Quick Pattern Links
+* [Strategy Pattern](#strategy-pattern)
+* [Observer Pattern](#observer-pattern)
+* [Command Pattern](#command-pattern)
 
 ## SOLID Principles of OO Design
 
@@ -52,12 +64,16 @@ $ pytest <pattern_name>
     Program toward abstrations not implementations.
 
 ## Abstraction Base Class Definition
-```python
-import abc
+Sadly, [PEP8](https://www.python.org/dev/peps/pep-0008/) doesn't have naming convention for `abc` (Abstract Base Class). Here, just use `I` prefix as the notation like other languages like `C++` or `Java`
 
-class MyABC(object):
+According to module [`abc`](https://docs.python.org/3/library/abc.html),
+simply inheriting from `abc.ABC` is the recommended way to define a ABC.
+
+```python
+from abc import ABC
+
+class IFoo(ABC):
     """Abstract Base Class Definition"""
-    __metaclass__ = abc.ABCMeta # Make this class abstract
 
     # Define a abstract method
     @abc.abstractmethod
@@ -72,10 +88,12 @@ class MyABC(object):
 ```
 
 ## Concrete Class Implementation
-```python
+Derived class inherits the `ABC`. Like `C++`, python supports multiple inheritance.\
+Say, Foo implements two `ABC`s: `IFoo` and `IBar`
 
-class MyClass(MyABC):
-    """Implementation of MyABC"""
+```python
+class Foo(IFoo, IBar):
+    """Implementation of IFoo and IBar"""
 
     def __init__(self, val=None):
         self._val = val
@@ -88,6 +106,10 @@ class MyClass(MyABC):
     def some_property(self):
         """Implementation of abstract property"""
         return self._val
+    
+    @property
+    def bar_property(self):
+        return self._bar
 
 ```
 
